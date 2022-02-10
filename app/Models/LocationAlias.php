@@ -10,6 +10,15 @@ class LocationAlias extends Model
     use HasFactory;
 
     /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'name',
+    ];
+
+    /**
      * Get the location that the alias belongs to.
      */
     public function location()
