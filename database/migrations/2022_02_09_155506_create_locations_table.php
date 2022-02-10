@@ -23,7 +23,6 @@ class CreateLocationsTable extends Migration
             $table->year('abandoned_year')->nullable();
             $table->year('demolished_year')->nullable();
             $table->year('reconverted_year')->nullable();
-            // TODO: Status ENUM
             $table->timestamps();
         });
     }
