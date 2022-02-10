@@ -49,6 +49,8 @@ class User extends Authenticatable implements MustVerifyEmail, FilamentUser
 
     public function canAccessFilament(): bool
     {
-        return $this->is_admin;
+        // return $this->is_admin;
+
+        return true; // Temporarily allow all users to access Filament
     }
 }
