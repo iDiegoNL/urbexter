@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\LocationResource\Pages;
 use App\Filament\Resources\LocationResource\RelationManagers;
 use App\Models\Location;
+use App\Models\LocationStatus;
 use Carbon\Carbon;
 use Filament\Forms;
 use Filament\Resources\Form;
@@ -28,12 +29,19 @@ class LocationResource extends Resource
 
         return $form
             ->schema([
+                Forms\Components\TextInput::make('name')
+                    ->required()
+                    ->maxLength(255),
+                Forms\Components\Select::make('location_status_id')
+                    ->label('Status')
+                    ->searchable()
+                    ->required()
+                    ->options(function () {
+                        return LocationStatus::all()->pluck('name', 'id');
+                    }),
                 Forms\Components\Grid::make()
                     ->columns(1)
                     ->schema([
-                        Forms\Components\TextInput::make('name')
-                            ->required()
-                            ->maxLength(255),
                         Forms\Components\HasManyRepeater::make('aliases')
                             ->relationship('aliases')
                             ->schema([
@@ -46,7 +54,6 @@ class LocationResource extends Resource
                         Forms\Components\MarkdownEditor::make('description')
                             ->required(),
                         Forms\Components\FileUpload::make('image_path')
-                            ->required()
                             ->label('Image')
                             ->directory('locations'),
                         Forms\Components\Select::make('country')
@@ -78,6 +85,7 @@ class LocationResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('name')
                     ->searchable(),
+                Tables\Columns\TextColumn::make('status.name'),
                 Tables\Columns\TextColumn::make('description')
                     ->limit(50)
                     ->searchable(),

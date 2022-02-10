@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\Storage;
 
@@ -25,6 +26,7 @@ class Location extends Model
         'abandoned_year',
         'demolished_year',
         'reconverted_year',
+        'location_status_id'
     ];
 
     /**
@@ -33,6 +35,14 @@ class Location extends Model
     public function aliases(): HasMany
     {
         return $this->hasMany(LocationAlias::class);
+    }
+
+    /**
+     * Get the status that the location has.
+     */
+    public function status(): BelongsTo
+    {
+        return $this->belongsTo(LocationStatus::class, 'location_status_id');
     }
 
     public function getImageUrl(): string

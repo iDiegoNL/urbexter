@@ -4,9 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class LocationAlias extends Model
+class LocationStatus extends Model
 {
     use HasFactory;
 
@@ -17,13 +17,15 @@ class LocationAlias extends Model
      */
     protected $fillable = [
         'name',
+        'color',
+        'icon',
     ];
 
     /**
-     * Get the location that the alias belongs to.
+     * Get all locations that have this status.
      */
-    public function location(): BelongsTo
+    public function locations(): HasMany
     {
-        return $this->belongsTo(Location::class);
+        return $this->hasMany(Location::class);
     }
 }
