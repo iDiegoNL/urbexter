@@ -8,6 +8,8 @@ use App\Http\Livewire\Auth\Passwords\Email;
 use App\Http\Livewire\Auth\Passwords\Reset;
 use App\Http\Livewire\Auth\Register;
 use App\Http\Livewire\Auth\Verify;
+use App\Http\Livewire\Locations\ShowEntryPage as LocationsShowEntryPage;
+use App\Http\Livewire\ShowHomePage;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,7 +23,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::view('/', 'home')->name('home');
+Route::get('/', ShowHomePage::class)->name('home');
+
+Route::prefix('locations')->name('locations.')->group(function () {
+    Route::get('{location}', LocationsShowEntryPage::class)->name('show');
+});
 
 Route::middleware('guest')->group(function () {
     Route::get('login', Login::class)
