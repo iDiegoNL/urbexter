@@ -34,17 +34,7 @@
             </x-slot>
         </x-app-ui::navbar>
 
-        <x-app-ui::header background-color="light">
-            <x-slot name="heading">
-                Latest reports
-            </x-slot>
-
-            <x-slot name="actions">
-                <x-app-ui::button icon="iconic-plus">
-                    Create new report
-                </x-app-ui::button>
-            </x-slot>
-        </x-app-ui::header>
+        @yield('header')
 
         @yield('content')
 
