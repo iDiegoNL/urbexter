@@ -19,7 +19,7 @@ class AddLocationStatusIdToLocationsTable extends Migration
                 ->after('reconverted_year')
                 ->constrained()
                 ->restrictOnUpdate()
-                ->restrictOnUpdate();
+                ->restrictOnDelete();
         });
     }
 
