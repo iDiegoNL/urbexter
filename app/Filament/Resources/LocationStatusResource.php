@@ -11,6 +11,7 @@ use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
+use Illuminate\Support\Collection;
 
 class LocationStatusResource extends Resource
 {
@@ -20,16 +21,7 @@ class LocationStatusResource extends Resource
 
     public static function form(Form $form): Form
     {
-        $iconicIcons = (new GetAvailableIcons())
-            ->execute('vendor/itsmalikjones/blade-iconic/resources/svg', 'iconic');
-
-        $heroIcons = (new GetAvailableIcons())
-            ->execute('vendor/blade-ui-kit/blade-heroicons/resources/svg', 'heroicon');
-
-        $icons = $iconicIcons
-            ->merge($heroIcons)
-            ->put('', 'No icon')
-            ->toArray();
+        $icons = (new self)->getAvailableIcons();
 
         return $form
             ->schema([
@@ -47,7 +39,11 @@ class LocationStatusResource extends Resource
                     ]),
                 Forms\Components\Select::make('icon')
                     ->searchable()
-                    ->options($icons),
+                    ->getSearchResultsUsing(function (string $query) use ($icons) {
+                        return $icons->filter(function ($value, $key) use ($query) {
+                            return str_contains($key, $query);
+                        })->take(50);
+                    }),
             ]);
     }
 
@@ -83,5 +79,42 @@ class LocationStatusResource extends Resource
             'create' => Pages\CreateLocationStatus::route('/create'),
             'edit' => Pages\EditLocationStatus::route('/{record}/edit'),
         ];
+    }
+
+    private function getAvailableIcons(): Collection
+    {
+        $iconicIcons = (new GetAvailableIcons())
+            ->execute('vendor/itsmalikjones/blade-iconic/resources/svg', 'iconic');
+
+        $heroIcons = (new GetAvailableIcons())
+            ->execute('vendor/blade-ui-kit/blade-heroicons/resources/svg', 'heroicon');
+
+        $faBrands = (new GetAvailableIcons())
+            ->execute('resources/icons/blade-fontawesome/brands', 'fab');
+
+        $faDuotone = (new GetAvailableIcons())
+            ->execute('resources/icons/blade-fontawesome/duotone', 'fad');
+
+        $faLight = (new GetAvailableIcons())
+            ->execute('resources/icons/blade-fontawesome/light', 'fal');
+
+        $faRegular = (new GetAvailableIcons())
+            ->execute('resources/icons/blade-fontawesome/regular', 'far');
+
+        $faSolid = (new GetAvailableIcons())
+            ->execute('resources/icons/blade-fontawesome/solid', 'fas');
+
+        $faThin = (new GetAvailableIcons())
+            ->execute('resources/icons/blade-fontawesome/thin', 'fat');
+
+        return $iconicIcons
+            ->merge($heroIcons)
+            ->merge($faBrands)
+            ->merge($faDuotone)
+            ->merge($faLight)
+            ->merge($faRegular)
+            ->merge($faSolid)
+            ->merge($faThin)
+            ->put('', 'No icon');
     }
 }

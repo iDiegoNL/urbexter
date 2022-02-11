@@ -18,6 +18,7 @@
         "league/flysystem-aws-s3-v3": "~1.0",
         "league/iso3166": "^4.0",
         "livewire/livewire": "^2.10",
+        "owenvoke/blade-fontawesome": "^1.10.0",
         "razorui/blade-application-ui": "^0.2.21",
         "spatie/emoji": "^3.0"
     },
