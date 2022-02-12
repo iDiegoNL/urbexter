@@ -45,6 +45,14 @@ class Location extends Model
         return $this->belongsTo(LocationStatus::class, 'location_status_id');
     }
 
+    /**
+     * Get the reports of this location.
+     */
+    public function reports(): HasMany
+    {
+        return $this->hasMany(Report::class);
+    }
+
     public function getImageUrl(): string
     {
         if (!$this->image_path) {

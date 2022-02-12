@@ -18,3 +18,4 @@ yarn-error.log
 /.vscode
 auth.json
 ray.php
+/resources/icons/blade-fontawesome

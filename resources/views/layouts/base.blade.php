@@ -30,6 +30,8 @@
     <body>
         @yield('body')
 
+        @livewire('livewire-ui-modal')
+
         @livewireScripts
     </body>
 </html>

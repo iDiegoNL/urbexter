@@ -1,6 +1,11 @@
-import Alpine from 'alpinejs';
-window.Alpine = Alpine;
-Alpine.start();
+import Alpine from 'alpinejs'
+import FormsAlpinePlugin from '../../vendor/filament/forms/dist/module.esm'
+
+Alpine.plugin(FormsAlpinePlugin)
+
+window.Alpine = Alpine
+
+Alpine.start()
 
 /**
  * Echo exposes an expressive API for subscribing to channels and listening

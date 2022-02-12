@@ -23,7 +23,9 @@
                     </x-slot>
 
                     <x-slot name="subheading">
-                        {{ Str::limit($location->description) }}
+                        <p class="break-words">
+                            {{ Str::limit($location->description) }}
+                        </p>
                     </x-slot>
                 </x-app-ui::card>
             @endforeach

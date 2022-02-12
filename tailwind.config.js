@@ -48,7 +48,15 @@ module.exports = {
         "sm:max-w-4xl",
         "sm:max-w-5xl",
         "sm:max-w-6xl",
-        "sm:max-w-7xl"
+        "sm:max-w-7xl",
+        "md:max-w-lg",
+        "md:max-w-xl",
+        "lg:max-w-2xl",
+        "lg:max-w-3xl",
+        "xl:max-w-4xl",
+        "xl:max-w-5xl",
+        "2xl:max-w-6xl",
+        "2xl:max-w-7xl'",
     ],
     plugins: [
         require('@tailwindcss/typography'),
