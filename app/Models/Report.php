@@ -65,9 +65,12 @@ class Report extends Model implements HasMedia
 
     public function registerMediaConversions(Media $media = null): void
     {
-        $this->addMediaConversion('thumb')
-            ->width(381)
-            ->height(214)
+        $this->addMediaConversion('card-thumb')
+            ->crop('crop-center', 381, 214)
+            ->format('jpg');
+
+        $this->addMediaConversion('carousel-thumb')
+            ->crop('crop-center', 286, 200)
             ->format('jpg');
     }
 }

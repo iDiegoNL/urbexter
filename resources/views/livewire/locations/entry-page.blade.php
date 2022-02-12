@@ -106,18 +106,16 @@
             </div>
         </div>
         <div class="relative">
-            @if($location->image_path)
-                <svg class="hidden md:block absolute top-0 right-0 -mt-20 -mr-20" width="404" height="384" fill="none"
-                     viewBox="0 0 404 384" aria-hidden="true">
-                    <defs>
-                        <pattern id="95e8f2de-6d30-4b7e-8159-f791729db21b" x="0" y="0" width="20" height="20"
-                                 patternUnits="userSpaceOnUse">
-                            <rect x="0" y="0" width="4" height="4" class="text-gray-200" fill="currentColor"/>
-                        </pattern>
-                    </defs>
-                    <rect width="404" height="384" fill="url(#95e8f2de-6d30-4b7e-8159-f791729db21b)"/>
-                </svg>
-            @endif
+            <svg class="hidden md:block absolute top-0 right-0 -mt-20 -mr-20" width="404" height="384" fill="none"
+                 viewBox="0 0 404 384" aria-hidden="true">
+                <defs>
+                    <pattern id="95e8f2de-6d30-4b7e-8159-f791729db21b" x="0" y="0" width="20" height="20"
+                             patternUnits="userSpaceOnUse">
+                        <rect x="0" y="0" width="4" height="4" class="text-gray-200" fill="currentColor"/>
+                    </pattern>
+                </defs>
+                <rect width="404" height="384" fill="url(#95e8f2de-6d30-4b7e-8159-f791729db21b)"/>
+            </svg>
             <div class="relative md:px-6">
                 <div class="lg:grid lg:gap-6 lg:grid-cols-2">
                     <div class="prose prose-blue prose-lg text-gray-500 lg:max-w-none -my-5">
@@ -125,10 +123,11 @@
                             {{ $location->description }}
                         </x-markdown>
                     </div>
-                    @if($location->image_path)
-                        <img class="w-full rounded-lg"
-                             src="{{ $location->getImageUrl() }}"
-                             alt="" width="1310" height="873">
+                    @if($location->getFirstMediaUrl() !== '')
+                        <img class="w-full rounded-lg cursor-pointer"
+                             src="{{ $location->getFirstMediaUrl('default', 'small') }}"
+                             alt="{{ $location->name }}"
+                             onclick="Livewire.emit('openModal', 'modals.show-media-modal', {{ json_encode(['media_id' => $location->getFirstMedia()->id]) }})">
                     @endif
                 </div>
             </div>
@@ -150,7 +149,7 @@
             @forelse($location->reports as $report)
                 <x-app-ui::card
                     class="cursor-pointer"
-                    :image="$report->getFirstMediaUrl('default', 'thumb') ?: 'https://via.placeholder.com/397x223?text=No+image+available'"
+                    :image="$report->getFirstMediaUrl('default', 'card-thumb') ?: 'https://via.placeholder.com/397x223?text=No+image+available'"
                     :imageAlt="$report->title"
                     onclick="Livewire.emit('openModal', 'reports.show.show-report-modal', {{ json_encode(['report_id' => $report->id]) }})"
                 >

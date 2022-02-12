@@ -7,10 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\Storage;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
-class Location extends Model
+class Location extends Model implements HasMedia
 {
     use HasFactory;
+    use InteractsWithMedia;
 
     /**
      * The attributes that are mass assignable.
@@ -20,7 +24,6 @@ class Location extends Model
     protected $fillable = [
         'name',
         'description',
-        'image_path',
         'country',
         'build_year',
         'abandoned_year',
@@ -53,12 +56,14 @@ class Location extends Model
         return $this->hasMany(Report::class);
     }
 
-    public function getImageUrl(): string
+    public function registerMediaConversions(Media $media = null): void
     {
-        if (!$this->image_path) {
-            return 'https://via.placeholder.com/397x223?text=No+image+available';
-        }
+        $this->addMediaConversion('thumb')
+            ->crop('crop-center', 397, 223)
+            ->format('jpg');
 
-        return Storage::url($this->image_path);
+        $this->addMediaConversion('small')
+            ->quality(90)
+            ->format('jpg');
     }
 }

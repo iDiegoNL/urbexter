@@ -17,7 +17,6 @@ class CreateLocationsTable extends Migration
             $table->id();
             $table->string('name');
             $table->longText('description');
-            $table->string('image_path')->nullable();
             $table->string('country', 2);
             $table->year('build_year')->nullable();
             $table->year('abandoned_year')->nullable();

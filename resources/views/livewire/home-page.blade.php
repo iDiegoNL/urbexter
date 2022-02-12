@@ -13,7 +13,7 @@
         <div class="grid gap-5 lg:grid-cols-3 lg:max-w-none">
             @foreach($locations as $location)
                 <x-app-ui::card
-                    :image="$location->getImageUrl()"
+                    :image="$location->getFirstMediaUrl('default', 'thumb') ?: 'https://via.placeholder.com/397x223?text=No+image+available'"
                     :imageAlt="$location->name"
                 >
                     <x-slot name="heading">

@@ -53,9 +53,9 @@ class LocationResource extends Resource
                             ->createItemButtonLabel('Add alias'),
                         Forms\Components\MarkdownEditor::make('description')
                             ->required(),
-                        Forms\Components\FileUpload::make('image_path')
-                            ->label('Image')
-                            ->directory('locations'),
+                        Forms\Components\SpatieMediaLibraryFileUpload::make('image')
+                            ->disk('media')
+                            ->image(),
                         Forms\Components\Select::make('country')
                             ->required()
                             ->searchable()
@@ -89,8 +89,8 @@ class LocationResource extends Resource
                 Tables\Columns\TextColumn::make('description')
                     ->limit(50)
                     ->searchable(),
-                Tables\Columns\ImageColumn::make('image_path')
-                    ->name('Image'),
+                Tables\Columns\SpatieMediaLibraryImageColumn::make('image')
+                    ->conversion('thumb'),
                 Tables\Columns\TextColumn::make('country'),
                 Tables\Columns\TextColumn::make('build_year')
                     ->date('Y'),
