@@ -8,6 +8,7 @@ use Auth;
 use Filament\Forms;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use LivewireUI\Modal\ModalComponent;
 
 /**
@@ -15,6 +16,7 @@ use LivewireUI\Modal\ModalComponent;
  */
 class CreateFormModal extends ModalComponent implements HasForms
 {
+    use AuthorizesRequests;
     use InteractsWithForms;
 
     public Location $location;
@@ -25,9 +27,11 @@ class CreateFormModal extends ModalComponent implements HasForms
     public string $description = '';
     public array $pictures = [];
 
-    public function mount($location_id): void
+    public function mount($location_id)
     {
         $this->location = Location::query()->findOrFail($location_id);
+
+        $this->authorize('create', Report::class);
     }
 
     public function render()

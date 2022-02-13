@@ -61,10 +61,12 @@
         </x-slot>
 
         <x-slot name="actions">
-            <x-app-ui::button
-                onclick="Livewire.emit('openModal', 'reports.create.create-form-modal', {{ json_encode(['location_id' => $location->id]) }})">
-                Write a report
-            </x-app-ui::button>
+            @can('create', App\Models\Report::class)
+                <x-app-ui::button
+                    onclick="Livewire.emit('openModal', 'reports.create.create-form-modal', {{ json_encode(['location_id' => $location->id]) }})">
+                    Write a report
+                </x-app-ui::button>
+            @endcan
 
             <x-app-ui::icon-button label="Share" icon="iconic-share"/>
 
@@ -174,11 +176,20 @@
                     </x-slot>
 
                     <x-slot name="actions">
-                        <x-app-ui::button
-                            size="sm"
-                            onclick="Livewire.emit('openModal', 'reports.create.create-form-modal', {{ json_encode(['location_id' => $location->id]) }})">
-                            Write a report
-                        </x-app-ui::button>
+                        @auth
+                            <x-app-ui::button
+                                size="sm"
+                                onclick="Livewire.emit('openModal', 'reports.create.create-form-modal', {{ json_encode(['location_id' => $location->id]) }})">
+                                Write a report
+                            </x-app-ui::button>
+                        @else
+                            <x-app-ui::button
+                                size="sm"
+                                tag="a"
+                                href="{{ route('login') }}">
+                                Log in to write a report
+                            </x-app-ui::button>
+                        @endif
                     </x-slot>
                 </x-app-ui::empty-state>
 
@@ -194,11 +205,20 @@
                     </x-slot>
 
                     <x-slot name="actions">
-                        <x-app-ui::button
-                            size="sm"
-                            onclick="Livewire.emit('openModal', 'reports.create.create-form-modal', {{ json_encode(['location_id' => $location->id]) }})">
-                            Write a report
-                        </x-app-ui::button>
+                        @auth
+                            <x-app-ui::button
+                                size="sm"
+                                onclick="Livewire.emit('openModal', 'reports.create.create-form-modal', {{ json_encode(['location_id' => $location->id]) }})">
+                                Write a report
+                            </x-app-ui::button>
+                        @else
+                            <x-app-ui::button
+                                size="sm"
+                                tag="a"
+                                href="{{ route('login') }}">
+                                Log in to write a report
+                            </x-app-ui::button>
+                        @endif
                     </x-slot>
                 </x-app-ui::empty-state>
             @endforelse

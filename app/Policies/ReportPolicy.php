@@ -11,84 +11,98 @@ class ReportPolicy
     use HandlesAuthorization;
 
     /**
+     * Perform pre-authorization checks.
+     *
+     * @param User $user
+     * @param  string  $ability
+     * @return void|bool
+     */
+    public function before(User $user, $ability)
+    {
+        if ($user->is_admin) {
+            return true;
+        }
+    }
+
+    /**
      * Determine whether the user can view any models.
      *
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @param User|null $user
+     * @return bool
      */
-    public function viewAny(User $user)
+    public function viewAny(?User $user): bool
     {
-        //
+        return true;
     }
 
     /**
      * Determine whether the user can view the model.
      *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Report  $report
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @param User|null $user
+     * @param Report $report
+     * @return bool
      */
-    public function view(User $user, Report $report)
+    public function view(?User $user, Report $report): bool
     {
-        //
+        return true;
     }
 
     /**
      * Determine whether the user can create models.
      *
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @param User $user
+     * @return bool
      */
-    public function create(User $user)
+    public function create(User $user): bool
     {
-        //
+        return true;
     }
 
     /**
      * Determine whether the user can update the model.
      *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Report  $report
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @param User $user
+     * @param Report $report
+     * @return bool
      */
-    public function update(User $user, Report $report)
+    public function update(User $user, Report $report): bool
     {
-        //
+        return $user->id === $report->user_id;
     }
 
     /**
      * Determine whether the user can delete the model.
      *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Report  $report
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @param User $user
+     * @param Report $report
+     * @return bool
      */
-    public function delete(User $user, Report $report)
+    public function delete(User $user, Report $report): bool
     {
-        //
+        return $user->id === $report->user_id;
     }
 
     /**
      * Determine whether the user can restore the model.
      *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Report  $report
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @param User $user
+     * @param Report $report
+     * @return bool
      */
-    public function restore(User $user, Report $report)
+    public function restore(User $user, Report $report): bool
     {
-        //
+        return $user->is_admin;
     }
 
     /**
      * Determine whether the user can permanently delete the model.
      *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Report  $report
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @param User $user
+     * @param Report $report
+     * @return bool
      */
-    public function forceDelete(User $user, Report $report)
+    public function forceDelete(User $user, Report $report): bool
     {
-        //
+        return $user->is_admin;
     }
 }
