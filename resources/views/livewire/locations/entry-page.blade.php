@@ -148,16 +148,17 @@
         </div>
 
         <div class="grid gap-5 lg:grid-cols-3 lg:max-w-none p-6">
-            @forelse($location->reports as $report)
-                <x-app-ui::card
-                    class="cursor-pointer"
-                    :image="$report->getFirstMediaUrl('default', 'card-thumb') ?: 'https://via.placeholder.com/397x223?text=No+image+available'"
-                    :imageAlt="$report->title"
-                    onclick="Livewire.emit('openModal', 'reports.show.show-report-modal', {{ json_encode(['report_id' => $report->id]) }})"
-                >
-                    <x-slot name="heading">
-                        {{ $report->title }}
-                    </x-slot>
+            @if($location->reports)
+                @foreach($location->reports as $report)
+                    <x-app-ui::card
+                        class="cursor-pointer"
+                        :image="$report->getFirstMediaUrl('default', 'card-thumb') ?: 'https://via.placeholder.com/397x223?text=No+image+available'"
+                        :imageAlt="$report->title"
+                        onclick="Livewire.emit('openModal', 'reports.show.show-report-modal', {{ json_encode(['report_id' => $report->id]) }})"
+                    >
+                        <x-slot name="heading">
+                            {{ $report->title }}
+                        </x-slot>
 
                     <x-slot name="subheading">
                         <p class="break-words">
@@ -192,8 +193,7 @@
                         @endif
                     </x-slot>
                 </x-app-ui::empty-state>
-
-            @empty
+            @else
                 <x-app-ui::empty-state icon="fad-file-magnifying-glass" class="col-span-3" width="7xl" flat>
                     <x-slot name="heading">
                         Sorry to disappoint you!
@@ -221,7 +221,7 @@
                         @endif
                     </x-slot>
                 </x-app-ui::empty-state>
-            @endforelse
+            @endif
         </div>
     </div>
 </div>
