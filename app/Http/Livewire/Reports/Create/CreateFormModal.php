@@ -102,6 +102,15 @@ class CreateFormModal extends ModalComponent implements HasForms
         ]);
 
         $this->form->model($report)->saveRelationships();
+
+        // If the location doesn't have a picture attached yet, use the report's first picture.
+        if (!$this->location->getFirstMedia()) {
+            $report = $report->refresh();
+
+            $firstMediaItem = $report->getFirstMedia();
+
+            $firstMediaItem->copy($this->location, 'default', 'media');
+        }
     }
 
     protected function getFormModel(): string
