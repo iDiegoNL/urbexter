@@ -161,7 +161,7 @@
         </div>
 
         <div class="grid gap-5 lg:grid-cols-3 lg:max-w-none p-6">
-            @if($location->reports)
+            @if($location->reports->count())
                 @foreach($location->reports as $report)
                     <x-app-ui::card
                         class="cursor-pointer"
