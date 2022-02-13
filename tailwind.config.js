@@ -33,10 +33,12 @@ module.exports = {
         './resources/**/*.php',
         './resources/**/*.vue',
         './resources/**/*.twig',
+        './storage/framework/views/*.php',
         './vendor/razorui/blade-application-ui/resources/views/components/**/*.blade.php',
         './vendor/wire-elements/modal/resources/views/*.blade.php',
-        './storage/framework/views/*.php',
         './vendor/filament/**/*.blade.php',
+        './vendor/usernotnull/tall-toasts/config/**/*.php',
+        './vendor/usernotnull/tall-toasts/resources/views/**/*.blade.php',
     ],
     safelist: [
         "sm:max-w-sm",

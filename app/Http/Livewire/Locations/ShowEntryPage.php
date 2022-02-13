@@ -10,6 +10,8 @@ class ShowEntryPage extends Component
 {
     use AuthorizesRequests;
 
+    public $listeners = ['reportAdded'];
+
     public Location $location;
 
     public function mount(Location $location)
@@ -22,5 +24,10 @@ class ShowEntryPage extends Component
     public function render()
     {
         return view('livewire.locations.entry-page');
+    }
+
+    public function reportAdded(): void
+    {
+        $this->location->refresh();
     }
 }

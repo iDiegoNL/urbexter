@@ -23,6 +23,7 @@
         "razorui/blade-application-ui": "^0.2.21",
         "spatie/emoji": "^3.0",
         "spatie/laravel-markdown": "^2.2",
+        "usernotnull/tall-toasts": "^1.4",
         "wire-elements/modal": "^1.0"
     },
     "require-dev": {

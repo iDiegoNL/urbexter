@@ -10,6 +10,7 @@ use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use LivewireUI\Modal\ModalComponent;
+use Usernotnull\Toast\Concerns\WireToast;
 
 /**
  * @property Forms\ComponentContainer $form
@@ -18,8 +19,9 @@ class CreateFormModal extends ModalComponent implements HasForms
 {
     use AuthorizesRequests;
     use InteractsWithForms;
+    use WireToast;
 
-    public Location $location;
+    public ?Location $location;
 
     public string $title = '';
     public string $visited_at = '';
@@ -111,6 +113,16 @@ class CreateFormModal extends ModalComponent implements HasForms
 
             $firstMediaItem->copy($this->location, 'default', 'media');
         }
+
+        // Close all modals and emit the reportAdded event.
+        $this->emit('reportAdded');
+
+        // Open the report show modal.
+        $this->emit('openModal', 'reports.show.show-report-modal', ['report_id' => $report->id]);
+
+        toast()
+            ->success('Your report has been published successfully.', 'Nice work!')
+            ->push();
     }
 
     protected function getFormModel(): string
@@ -124,5 +136,10 @@ class CreateFormModal extends ModalComponent implements HasForms
     public static function modalMaxWidth(): string
     {
         return '7xl';
+    }
+
+    public static function destroyOnClose(): bool
+    {
+        return true;
     }
 }

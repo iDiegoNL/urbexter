@@ -31,4 +31,9 @@ class ShowReportModal extends ModalComponent
     {
         return '7xl';
     }
+
+    public static function destroyOnClose(): bool
+    {
+        return true;
+    }
 }
