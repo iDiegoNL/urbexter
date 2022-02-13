@@ -100,6 +100,19 @@
 
 <div class="py-4 xl:pt-8 px-4 sm:px-6 lg:px-8 overflow-hidden">
     <div class="max-w-max lg:max-w-7xl mx-auto">
+        @if(Auth::check() && !$location->getFirstMedia())
+            <div class="pb-8">
+                <x-app-ui::alert icon="iconic-information">
+                    <x-slot name="heading">
+                        Hey, we need your help!
+                    </x-slot>
+
+                    This location doesn't have an image yet. If you have visited this location, you can help us by submitting a
+                    report about it! The first uploaded image will then be used as the location's featured image.
+                </x-app-ui::alert>
+            </div>
+        @endif
+
         <div class="relative z-10 mb-8 md:mb-2 md:px-6">
             <div class="text-base max-w-prose lg:max-w-none">
                 <p class="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
@@ -160,13 +173,13 @@
                             {{ $report->title }}
                         </x-slot>
 
-                    <x-slot name="subheading">
-                        <p class="break-words">
-                            {{ Str::limit($report->plainTextDescription()) }}
-                        </p>
-                    </x-slot>
-                </x-app-ui::card>
-
+                        <x-slot name="subheading">
+                            <p class="break-words">
+                                {{ Str::limit($report->plainTextDescription()) }}
+                            </p>
+                        </x-slot>
+                    </x-app-ui::card>
+                @endforeach
                 <x-app-ui::empty-state icon="fad-typewriter">
                     <x-slot name="heading">
                         Did you visit this location?
