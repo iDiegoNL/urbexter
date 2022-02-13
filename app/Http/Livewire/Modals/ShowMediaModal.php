@@ -37,14 +37,4 @@ class ShowMediaModal extends ModalComponent
     {
         return false;
     }
-
-    /**
-     * Specify if clicking outside the modal should close it
-     *
-     * @return bool
-     */
-    public static function closeModalOnClickAway(): bool
-    {
-        return false;
-    }
 }
