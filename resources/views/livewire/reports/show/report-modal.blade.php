@@ -5,7 +5,7 @@
 <div class="text-left overflow-hidden rounded-lg">
     <div class="hidden sm:block absolute top-0 right-0 pt-4 pr-4">
         <button type="button"
-                wire:click="$emit('closeModal')"
+                wire:click="$emit('closeModal', true)"
                 class="bg-white rounded-md text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
             <span class="sr-only">Close</span>
             <x-heroicon-o-x class="h-6 w-6"/>
