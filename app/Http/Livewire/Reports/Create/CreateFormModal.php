@@ -32,6 +32,8 @@ class CreateFormModal extends ModalComponent implements HasForms
         $this->location = Location::query()->findOrFail($location_id);
 
         $this->authorize('create', Report::class);
+
+        $this->visited_at = now();
     }
 
     public function render()
@@ -55,7 +57,6 @@ class CreateFormModal extends ModalComponent implements HasForms
                                 ->required()
                                 ->label('When did you visit?')
                                 ->maxDate(now()->addDay())
-                                ->default(now())
                                 ->withoutSeconds(),
                             Forms\Components\TextInput::make('visit_duration')
                                 ->required()
