@@ -18,9 +18,16 @@
             <x-app-ui::button wire:click="$emit('closeModal', true)" color="secondary">
                 Cancel
             </x-app-ui::button>
-            <x-app-ui::button wire:click="submit">
+            <x-button wire:click="submit" wire:loading.remove>
                 Create
-            </x-app-ui::button>
+            </x-button>
+
+            <x-button
+                icon="fad-spinner-third"
+                icon-class=" faa-spin animated"
+                wire:loading.flex>
+                Creating...
+            </x-button>
         </x-app-ui::modal.actions>
     </footer>
 </form>
